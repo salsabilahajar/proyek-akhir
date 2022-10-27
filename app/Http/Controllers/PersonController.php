@@ -10,15 +10,34 @@ class PersonController extends Controller
 
     private $name = "salsabila hajar";
 
+    private $task = '100';
+
+    private $quiz = '100';
+
+    private $mid_term = '90' ;
+
+    private $final = '90';
+   
+
     public function index() {
         return view("person.index");
     }
-    public function sendData() {
-        $nrp = $this-> nrp;
-        $name = $this->name;
 
-        return view("person.sendData", compact("nrp","name"));
+    public function myCourse($task,$quiz,$mid_term,$final) {
+        $this->task = $task;
+        $this->quiz = $quiz;
+        $this->mid_term = $mid_term;
+        $this->final = $final;
+        $grade = $this->calculateGrade();
+
+        return view('person.my_course', compact('task','quiz','mid_term','final','grade'));
     }
+
+    private function calculateGrade() {
+        $grade = (($this-> task * 0.1) + ($this-> quiz * 0.1) + ($this-> mid_term * 0.3) + ($this-> final * 0.5));
+        return $grade;
+    }
+  
     public function show($param) {
         $this->name = $param;
         return $this->name;
