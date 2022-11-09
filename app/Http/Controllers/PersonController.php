@@ -42,4 +42,8 @@ class PersonController extends Controller
         $this->name = $param;
         return $this->name;
     }
+
+    public function create() {
+        return view('person.create');
+    }
 }
